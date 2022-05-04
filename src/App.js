@@ -1,13 +1,7 @@
-import { Box, Typography } from "@mui/material";
+import HomePage from "./HomePage";
 
 function App() {
-  return (
-    <div className="App">
-      <Box>
-        <Typography>Set Up</Typography>
-      </Box>
-    </div>
-  );
+  return <HomePage />;
 }
 
 export default App;
