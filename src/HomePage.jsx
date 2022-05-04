@@ -1,5 +1,7 @@
 import { Grid } from "@mui/material";
-import City from "./City";
+import CityDropDown from "./CityDropDown";
+
+const data = require("./data.json");
 
 export default function HomePage() {
   return (
@@ -11,8 +13,22 @@ export default function HomePage() {
       sx={{ height: "100vh", background: "blue" }}
     >
       <Grid item sx={{ minWidth: "75%" }}>
-        <City name="city1" details="details1" />
-        <City name="city2" details="details2" />
+        {data.map((city) => {
+          const temperatures = city.main;
+          return (
+            <CityDropDown
+              key={city.id}
+              name={city.name}
+              details={{
+                temp: temperatures.temp,
+                max: temperatures.temp_max,
+                min: temperatures.temp_min,
+                wind: city.wind.speed,
+                description: city.weather[0].description,
+              }}
+            />
+          );
+        })}
       </Grid>
     </Grid>
   );
