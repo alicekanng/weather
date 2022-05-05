@@ -58,6 +58,7 @@ export default function HomePage() {
                   min: temperatures.temp_min,
                   wind: city.wind.speed,
                   description: city.weather[0].description,
+                  status: city.weather[0].main,
                 }}
               />
             );

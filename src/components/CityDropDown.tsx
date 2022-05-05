@@ -7,7 +7,13 @@ import {
   Stack,
   Divider,
 } from "@mui/material";
-import { ExpandMore, Thermostat, Cloud, Air } from "@mui/icons-material";
+import {
+  ExpandMore,
+  Thermostat,
+  Cloud,
+  Air,
+  WbSunny,
+} from "@mui/icons-material";
 import React from "react";
 
 const formatString = (str: string) => {
@@ -24,9 +30,22 @@ interface DropDownProps {
   details: any;
 }
 
+enum BackgroundImages {
+  CLOUD = "/imgs/clouds.jpg",
+  SUN = "/imgs/sun.jpg",
+}
+
 export default function CityDropDown({ name, details }: DropDownProps) {
   return (
-    <Accordion sx={{ backgroundImage: "url(/imgs/clouds.jpg)" }}>
+    <Accordion
+      sx={{
+        backgroundImage: `url(${
+          details.status === "Clouds"
+            ? BackgroundImages.CLOUD
+            : BackgroundImages.SUN
+        })`,
+      }}
+    >
       <AccordionSummary
         expandIcon={<ExpandMore sx={{ color: "black", padding: "0px 10px" }} />}
       >
@@ -54,7 +73,11 @@ export default function CityDropDown({ name, details }: DropDownProps) {
             <Typography>{`${details.wind} m/s`}</Typography>
           </Stack>
           <Stack direction="row">
-            <Cloud sx={iconStyle} />
+            {details.status === "Clouds" ? (
+              <Cloud sx={iconStyle} />
+            ) : (
+              <WbSunny sx={iconStyle} />
+            )}
             <Typography>{formatString(details.description)}</Typography>
           </Stack>
         </Stack>
