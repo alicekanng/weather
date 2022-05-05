@@ -1,70 +1,27 @@
-# Getting Started with Create React App
+# Pilot Take-home Assignment Weather App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Running the app locally
+1. Clone the repository at https://github.com/alicekanng/weather.git
+2. Check that you are in the ```weather``` folder
+3. Run ```npm install``` to install all packages
+4. Start the app using ```npm start```
 
-## Available Scripts
+You can also access the app using the following link: https://cheerful-eclair-f57f8d.netlify.app/
 
-In the project directory, you can run:
+## How I approached the project
+I first initialized the app using ```create-react-app```, and started playing around with various Material UI components to see which ones would be the best fit. After experimenting with a couple of them, I decided to use the accordion component and mimic something similar to Apple's built-in weather app. This allow users to easily see which cities are available, and pick the ones they would like to expand and learn more about.
 
-### `npm start`
+Once the basic front end was built, I loaded the data locally and imported it into the home page. Inside the home page, I iterate through the data and render a dropdown component for each city object. In this processs, I parse the city's name and temperature to render onto the collapsed accordion, and the min/max temperature, wind speed, and description to fill the expanded portion.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+At this point, I wanted to validate the data and make sure that I wasn't blindly assuming that the required information existed for every city in the json. After thinking of different ways to verify this, I decided to migrate the app to TypeScript. Using TypeScript, I was able to declare an interface containing all the required fields, and easily check that each city in the data implements this interface using the ```in``` type guard. I thought this was a big advantage over having to iterate through every key and manually checking whether every required key exists for each city—especially if there is a possibility of the data growing to include more cities around the world.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Lastly, I added some styling to make the UI aesthetically pleasing. I added some headers and helper texts, and again, tried to mimic the weather app on my phone by setting the background image to represent the weather in each city. Using Material UI's ```Grid``` and ```Stack``` components, I was able to easily center and size my custom components. At this stage, I also included some conditional rendering to handle other cases in which a city is not cloudy. As shown in the screenshot below, I currently show a different background image and icon if the city's weather description is not "Clouds".
 
-### `npm test`
+<img width="1680" alt="Screen Shot 2022-05-04 at 9 39 57 PM" src="https://user-images.githubusercontent.com/23249184/166868548-e265ec16-7925-48c8-b6c5-5244bf568007.png">
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Improvements for the future
+The biggest improvement I would make for this app is to introduce better edge case handling. Currently, the validation I do on the data only checks whether the keys exist for each city, but does not check whether the value of those keys are valid. This means that a city could have an empty string as its name, and the app will still render a dropdown component for it. Keeping scalability in mind, I could move the data into the backend (or even an external database) and fetch it by calling an HTTP GET request on a custom endpoint. At this point I would introduce a more elegant way to handle edge cases like the one I mentioned above, and have the backend validate the raw data before sending it to the frontend.
 
-### `npm run build`
+Another improvement would be to implement a wider variety of weather conditions the front end can render. Currently, the app renders a "sunny" background image for all cities with weather conditions not described as "Clouds". If the data included more cities which I could categorize into distinct groups, I would like to render different backgrounds and icons for rainy, snowy, foggy, etc. weathers. On the same note, with more data, I would like to make the list of accordions scrollable so that it does not expand outside the screen bounds.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Lastly, an interesting idea that I explored for a little bit was to render a map component on the home page with pins representing the cities. Given that the data includes longitude and latitude coordinates of each city, I would have liked to pin them on an interative map and have the weather information render on the click of each pin. I had done something similar in the past using the Google Places and Geocoding API so I went down that path for a little bit, but thought it was too big of a scope to tackle in this project.
