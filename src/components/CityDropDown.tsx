@@ -8,9 +8,9 @@ import {
   Divider,
 } from "@mui/material";
 import { ExpandMore, Thermostat, Cloud, Air } from "@mui/icons-material";
-import Clouds from "../imgs/clouds.jpg";
+import React from "react";
 
-const formatString = (str) => {
+const formatString = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
@@ -19,9 +19,14 @@ const iconStyle = {
   color: "white",
 };
 
-export default function CityDropDown({ name, details }) {
+interface DropDownProps {
+  name: string;
+  details: any;
+}
+
+export default function CityDropDown({ name, details }: DropDownProps) {
   return (
-    <Accordion sx={{ backgroundImage: `url(${Clouds})` }}>
+    <Accordion sx={{ backgroundImage: "url(/imgs/clouds.jpg)" }}>
       <AccordionSummary
         expandIcon={<ExpandMore sx={{ color: "black", padding: "0px 10px" }} />}
       >

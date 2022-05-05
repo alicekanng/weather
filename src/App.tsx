@@ -1,6 +1,7 @@
 import HomePage from "./components/HomePage";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "@fontsource/montserrat";
+import React from "react";
 
 const theme = createTheme({
   typography: {
